@@ -26,15 +26,17 @@ RegisterHook("/Script/Engine.PlayerController:ClientRestart", function()
         if raceCamera:IsValid() then
             PokeCamera(raceCamera)
         end
-
-        print(string.format("[UnionUltrawide] Adjusting fov to %s...\n", Config.field_of_view))
-        local command = "fov " .. tostring(Config.field_of_view)
-
-        KismetSystemLibrary = StaticFindObject("/Script/Engine.Default__KismetSystemLibrary")
-        KismetSystemLibrary:ExecuteConsoleCommand(UEHelpers.GetWorld(), command, PlayerController)
     else
         isRaceMode = false
     end
+end)
+
+RegisterHook("Function /Script/UNION.RaceSequenceStateReady:StartRace", function(Context)
+    print(string.format("[UnionUltrawide] Adjusting Game FOV to %s...\n", Config.field_of_view))
+    local command = "fov " .. tostring(Config.field_of_view)
+
+    KismetSystemLibrary = StaticFindObject("/Script/Engine.Default__KismetSystemLibrary")
+    KismetSystemLibrary:ExecuteConsoleCommand(UEHelpers.GetWorld(), command, PlayerController)
 end)
 
 NotifyOnNewObject("/Script/UNION.RaceCameraActor", function(self)
