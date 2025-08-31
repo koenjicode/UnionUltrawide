@@ -32,11 +32,13 @@ RegisterHook("/Script/Engine.PlayerController:ClientRestart", function()
 end)
 
 RegisterHook("Function /Script/UNION.RaceSequenceStateReady:StartRace", function(Context)
-    print(string.format("[UnionUltrawide] Adjusting Game FOV to %s...\n", Config.field_of_view))
-    local command = "fov " .. tostring(Config.field_of_view)
+    if Config.use_custom_field_of_view then
+        print(string.format("[UnionUltrawide] Adjusting Game FOV to %s...\n", Config.field_of_view))
+        local command = "fov " .. tostring(Config.field_of_view)
 
-    KismetSystemLibrary = StaticFindObject("/Script/Engine.Default__KismetSystemLibrary")
-    KismetSystemLibrary:ExecuteConsoleCommand(UEHelpers.GetWorld(), command, PlayerController)
+        KismetSystemLibrary = StaticFindObject("/Script/Engine.Default__KismetSystemLibrary")
+        KismetSystemLibrary:ExecuteConsoleCommand(UEHelpers.GetWorld(), command, PlayerController)
+    end
 end)
 
 NotifyOnNewObject("/Script/UNION.RaceCameraActor", function(self)

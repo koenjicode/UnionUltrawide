@@ -2,6 +2,9 @@
 
 local _union_ultrawide_config = {
 
+    -- Allows a custom field of view to be provided, if disabled the game field of view will not be altered.
+    use_custom_field_of_view = false,
+
     -- the FOV used in-game.
     field_of_view = 116,
 
